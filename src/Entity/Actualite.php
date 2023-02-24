@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\Timestampedinterface;
 use App\Repository\ActualiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,7 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ActualiteRepository::class)]
-class Actualite
+class Actualite implements Timestampedinterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,9 +19,6 @@ class Actualite
 
     #[ORM\Column(length: 255)]
     private ?string $titre = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $date = null;
 
     #[ORM\Column(length: 255)]
     private ?string $auteur = null;
@@ -35,9 +33,9 @@ class Actualite
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $updateAt = null;
+    private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'actualites')]
+    #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'actualite')]
     private Collection $categories;
 
     #[ORM\OneToMany(mappedBy: 'actualite', targetEntity: Commentaire::class, orphanRemoval: true)]
@@ -132,14 +130,14 @@ class Actualite
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updateAt;
+        return $this->updatedAt;
     }
 
-    public function setUpdateAt(?\DateTimeInterface $updateAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->updateAt = $updateAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

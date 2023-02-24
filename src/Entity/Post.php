@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use App\Model\Timestampedinterface;
 use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
-class Post
+class Post implements Timestampedinterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -92,5 +93,15 @@ class Post
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        // TODO: Implement getUpdateAt() method.
+    }
+
+    public function setUpdateAt(?\DateTimeInterface $updateAt)
+    {
+        // TODO: Implement setUpdateAt() method.
     }
 }

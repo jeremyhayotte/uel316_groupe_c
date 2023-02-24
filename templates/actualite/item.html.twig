@@ -1,0 +1,22 @@
+{% set actualite_show = path('actualite_show', { 'slug' : actualite.slug }) %}
+<article class="mb-5">
+    <div class="row">
+        <div class="col-md-5">
+            {%  if actualite.featuredImage %}
+                <a href="{{ actualite_show }}">
+                    <img src="/uploads/{{ actualite.featuredImage.filename }}" alt="{{ actualite.featuredImage.altText }}" loading="lazy" width="350" height="205" >
+                </a>
+            {%  endif %}
+        </div>
+
+        <div class="col-md-7">
+            <h2>
+                <a class="text-decoration-none" href="{{ actualite_show }}">{{ actualite.titre }}</a>
+            </h2>
+            <p>
+                {{ actualite.createdAt|date('d M Y') }}
+            </p>
+            {{ actualite.contenu|striptags|slice(0, 110) ~ '...' }}
+        </div>
+    </div>
+</article>

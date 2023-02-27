@@ -23,7 +23,7 @@ class Actualite implements Timestampedinterface
     #[ORM\Column(length: 255)]
     private ?string $auteur = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $commentaire = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -35,7 +35,7 @@ class Actualite implements Timestampedinterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Categorie::class, mappedBy: 'actualite')]
+    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'actualite')]
     private Collection $categories;
 
     #[ORM\OneToMany(mappedBy: 'actualite', targetEntity: Commentaire::class, orphanRemoval: true)]

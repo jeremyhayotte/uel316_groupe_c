@@ -21,8 +21,11 @@ class Categorie
     #[ORM\Column(length: 10)]
     private ?string $couleur = null;
 
-    #[ORM\ManyToMany(targetEntity: Actualite::class, inversedBy: 'categories')]
+    #[ORM\ManyToMany(targetEntity: Actualite::class, mappedBy: 'categories')]
     private Collection $actualites;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
     public function __construct()
     {
@@ -78,6 +81,23 @@ class Categorie
     public function removeActualite(Actualite $actualite): self
     {
         $this->actualites->removeElement($actualite);
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->nom;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

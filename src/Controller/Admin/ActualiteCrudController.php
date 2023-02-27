@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Actualite;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -21,7 +22,10 @@ class ActualiteCrudController extends AbstractCrudController
     {
         yield TextField::new('titre');
 
-        yield SlugField::new('slug')->setTargetFieldName('titre');
+        yield SlugField::new('slug')
+            ->setTargetFieldName('titre');
+
+        yield AssociationField::new('categories');
 
         yield TextField::new('auteur');
 

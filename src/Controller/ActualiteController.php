@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaire;
+use App\Form\Type\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,8 +19,13 @@ class ActualiteController extends AbstractController
         if(!$actualite) {
             return $this->redirectToRoute('app_home');
         }
-        return $this->render('actualite/show.html.twig', [
-            'actualite' => $actualite,
+
+        $comment = new Commentaire($actualite);
+
+        $commentForm = $this->createForm(CommentType::class, $comment);
+
+        return $this->renderForm('actualite/show.html.twig', [
+            'actualite' => $actualite, 'commentForm' => $commentForm
         ]);
     }
 }

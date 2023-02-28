@@ -27,6 +27,14 @@ class Commentaire
     #[ORM\JoinColumn(nullable: false)]
     private ?Actualite $actualite = null;
 
+    #[ORM\ManyToOne(inversedBy: 'commentaires')]
+    private ?User $user = null;
+
+    public function __construct(Actualite $actualite)
+    {
+        $this->actualite = $actualite;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -76,6 +84,18 @@ class Commentaire
     public function setActualite(?Actualite $actualite): self
     {
         $this->actualite = $actualite;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

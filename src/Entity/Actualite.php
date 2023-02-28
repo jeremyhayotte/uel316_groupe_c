@@ -35,7 +35,7 @@ class Actualite implements Timestampedinterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'actualite')]
+    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'actualites')]
     private Collection $categories;
 
     #[ORM\OneToMany(mappedBy: 'actualite', targetEntity: Commentaire::class, orphanRemoval: true)]
@@ -209,6 +209,11 @@ class Actualite implements Timestampedinterface
         $this->featuredImage = $featuredImage;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->titre;
     }
 
     public function getSlug(): ?string
